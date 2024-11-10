@@ -1,0 +1,29 @@
+# Container
+Containerfile*
+.containerignore
+*.yml
+
+# Git
+.git/
+.github/
+.gitignore
+
+# Documentation
+docs/
+*.md
+LICENSE
+
+# Go workspace
+go.work
+bin/
+tmp/
+
+# Configuration
+*.env*
+
+# IDE specific
+.vscode/
+.idea/
+
+# Metadata
+.DS_Store
