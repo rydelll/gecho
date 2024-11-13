@@ -11,6 +11,9 @@ import (
 	"github.com/rydelll/gecho/internal/server"
 )
 
+// defaultPort sets the default port for a server to listen on.
+const defaultPort = 7777
+
 // Execute parses arguments and environment variables, initializes dependencies,
 // and starts the application.
 func Execute(ctx context.Context, args []string, env func(string) string, stderr io.Writer) error {
@@ -25,8 +28,9 @@ func Execute(ctx context.Context, args []string, env func(string) string, stderr
 		fs.PrintDefaults()
 		fmt.Fprintln(stderr)
 	}
+
 	var port uint
-	fs.UintVar(&port, "port", 7777, "port for the server to listen on")
+	fs.UintVar(&port, "port", defaultPort, "port for the server to listen on")
 	fs.Parse(args[1:])
 
 	// Logger
@@ -37,7 +41,7 @@ func Execute(ctx context.Context, args []string, env func(string) string, stderr
 	// Server
 	srv, err := server.New(logger, port)
 	if err != nil {
-		return err
+		return fmt.Errorf("init server: %w", err)
 	}
 
 	srv.ListenAndServe(ctx)

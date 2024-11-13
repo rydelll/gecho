@@ -30,7 +30,7 @@ type Server struct {
 func New(logger *slog.Logger, port uint, opts ...Option) (*Server, error) {
 	ln, err := net.Listen("tcp", fmt.Sprintf(":%d", port))
 	if err != nil {
-		return nil, fmt.Errorf("start tcp listener: %v", err)
+		return nil, fmt.Errorf("start tcp listener: %w", err)
 	}
 
 	s := &Server{
@@ -46,8 +46,8 @@ func New(logger *slog.Logger, port uint, opts ...Option) (*Server, error) {
 	return s, nil
 }
 
-// ListenAndServe starts a server and blocks until the context is cancelled.
-// When the context is cancelled, the server is gracefully stopped.
+// ListenAndServe starts a server and blocks until the context is cancelled or
+// the server is stopped. The server is gracefully stopped.
 //
 // Once it has been stopped it is NOT safe for reuse.
 func (s *Server) ListenAndServe(ctx context.Context) {
@@ -55,10 +55,7 @@ func (s *Server) ListenAndServe(ctx context.Context) {
 
 	go func() {
 		<-ctx.Done()
-
-		s.logger.Info("shutdown signal recieved", "addr", s.Addr())
-		s.logger.Info("stop accepting tcp conns", "addr", s.Addr())
-		s.listener.Close()
+		s.Shutdown()
 	}()
 
 	for {
@@ -80,6 +77,14 @@ func (s *Server) ListenAndServe(ctx context.Context) {
 			s.handleConn(conn)
 		}()
 	}
+}
+
+// Shutdown stops the server from accepting new connections and causes any
+// blocked operations to return.
+func (s *Server) Shutdown() {
+	s.logger.Info("shutdown signal received", "addr", s.Addr())
+	s.logger.Info("stop accepting tcp conns", "addr", s.Addr())
+	s.listener.Close()
 }
 
 // Addr returns the listener's network address.

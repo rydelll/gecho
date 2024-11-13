@@ -7,6 +7,7 @@
     <h1>Gecho</h1>
 
 <a href="https://go.dev/doc/devel/release"><img alt="go" src="https://img.shields.io/github/go-mod/go-version/rydelll/gecho"></a>
+<a href="https://github.com/rydelll/gecho/actions"><img alt="workflow" src="https://github.com/rydelll/gecho/actions/workflows/ci.yml/badge.svg"></a>
 <a href="https://github.com/rydelll/gecho/blob/main/LICENSE"><img alt="license" src="https://img.shields.io/github/license/rydelll/gecho"></a>
 <a href="https://github.com/rydelll/gecho/issues"><img alt="issues" src="https://img.shields.io/github/issues/rydelll/gecho.svg"></a>
 </div>

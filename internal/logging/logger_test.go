@@ -86,6 +86,7 @@ func TestContext(t *testing.T) {
 	ctx := context.Background()
 	logger1 := DefaultLogger()
 	logger2 := FromContext(ctx)
+
 	if logger1 != logger2 {
 		t.Errorf("expected %#v to be %#v", logger1, logger2)
 	}
@@ -93,6 +94,7 @@ func TestContext(t *testing.T) {
 	logger1 = NewLogger(nil, slog.LevelDebug, false)
 	ctx = WithLogger(ctx, logger1)
 	logger2 = FromContext(ctx)
+
 	if logger1 != logger2 {
 		t.Errorf("expected %#v to be %#v", logger1, logger2)
 	}

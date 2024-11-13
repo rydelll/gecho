@@ -9,11 +9,36 @@ updates:
     directory: /
     schedule:
       interval: weekly
-  - package-ecosystem: docker
-    directory: /
-    schedule:
-      interval: weekly
+      day: monday
+      time: "01:01"
+    commit-message:
+      prefix: deps
+    groups:
+      all:
+        patterns:
+          - "*"
+  # # https://github.com/dependabot/dependabot-core/issues/6067
+  # - package-ecosystem: docker
+  #   directory: /
+  #   schedule:
+  #     interval: weekly
+  #     day: monday
+  #     time: "01:01"
+  #   commit-message:
+  #     prefix: deps
+  #   groups:
+  #     all:
+  #       patterns:
+  #         - "*"
   - package-ecosystem: gomod
     directory: /
     schedule:
       interval: weekly
+      day: monday
+      time: "01:01"
+    commit-message:
+      prefix: deps
+    groups:
+      all:
+        patterns:
+          - "*"
