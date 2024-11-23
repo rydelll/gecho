@@ -63,7 +63,7 @@ lint-container:
 	@if ! command -v podman > /dev/null; then \
 		sudo apt-get install -y podman; \
 	fi
-	@podman run --rm -i ghcr.io/hadolint/hadolint:latest < Containerfile
+	@podman run -e 'HOME=/' --rm -i ghcr.io/hadolint/hadolint:latest < Containerfile
 
 ## lint-go: analyze code for stylistic and logic errors
 .PHONY: lint-go
